@@ -1,13 +1,17 @@
 package exec
 
 import (
+	"fmt"
 	"log"
 	"regexp"
+	"strings"
 )
 
-func SearchForTags(s string, spattern string) string {
-	escapedTag := regexp.QuoteMeta(spattern)
-	pattern := escapedTag + `\s*=\s*"([^"]+)"`
+func SearchForTags(s, key, value string) string {
+
+	spattern := fmt.Sprintf("%s = \"%s\"", key, value)
+
+	pattern := regexp.QuoteMeta(spattern)
 
 	// Compile the regular expression pattern.
 	regex := regexp.MustCompile(pattern)
@@ -42,4 +46,16 @@ func RemoveKey(s string) string {
 	} else {
 		return ""
 	}
+}
+
+func TagCheck(s string) (string, string) {
+	parts := strings.Split(s, ":")
+	var key, value string
+	if len(parts) == 2 {
+		key = parts[0]
+		value = parts[1]
+	} else {
+		log.Fatalln("Tagging should be in format key:value, eg. env:dev")
+	}
+	return key, value
 }

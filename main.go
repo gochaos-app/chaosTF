@@ -10,29 +10,23 @@ import (
 
 func main() {
 	app := &cli.App{
-		Name:  "mentalTF",
+		Name:  "chaosTF",
 		Usage: "A terminal based app that transforms your infrastructure code into go-chaos config files",
 		Commands: []*cli.Command{
 			{
-				Name:  "readtf",
-				Usage: "Read terraform file",
+				Name: "readtf",
+				Usage: `Read terraform file: 
+				chaosTF readtf main.tf env:dev
+				chaosTF readtf main.tf env:dev myFile.hcl`,
 				Action: func(cCtx *cli.Context) error {
 					tfFile := cCtx.Args().Get(0)
-
 					pattern := cCtx.Args().Get(1)
-
-					exec.ExecConfig(tfFile, pattern)
-					return nil
-				},
-			},
-			{
-				Name:  "readstate",
-				Usage: "Read terraform file",
-				Action: func(cCtx *cli.Context) error {
-					tfFile := cCtx.Args().Get(0)
-					patternTag := cCtx.Args().Get(1)
-
-					exec.ExecConfig(tfFile, patternTag)
+					chaosFile := cCtx.Args().Get(2)
+					key, value := exec.TagCheck(pattern)
+					if chaosFile == "" {
+						chaosFile = "chaos-config.hcl"
+					}
+					exec.ExecConfig(tfFile, key, value, chaosFile)
 					return nil
 				},
 			},
