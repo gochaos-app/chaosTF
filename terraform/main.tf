@@ -11,10 +11,9 @@ variable "region" {
   default = "us-east-1"
 }
 
-provider "google" {
+provider "aws" {
  region ="us-east-1"
-  perro = "perro"
-  test = "test"
+
 }
 
 resource "aws_instance" "foo" {
@@ -33,7 +32,6 @@ resource "aws_instance" "boo" {
     env = "dev"
   }
 }
-
 
 resource "aws_instance" "test" {
   ami           = "ami-005e54dee72cc1d00" # us-west-2
