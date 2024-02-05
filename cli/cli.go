@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -21,13 +20,12 @@ func ExecCli() {
 				chaosTF readtf main.tf env:dev myFile.hcl`,
 				Action: func(c *cli.Context) error {
 					tfFile := c.Args().Get(0)
-					pattern := c.Args().Get(1)
+					tag := c.Args().Get(1)
 					chaosFile := c.Args().Get(2)
 					if chaosFile == "" {
 						chaosFile = "chaos-config.hcl"
 					}
-					fmt.Println(tfFile, pattern, chaosFile)
-					exec.LogicRead(tfFile)
+					exec.LogicSingleFileRead(tfFile, tag)
 					return nil
 				},
 			},
