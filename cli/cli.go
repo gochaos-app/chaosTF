@@ -21,11 +21,8 @@ func ExecCli() {
 				Action: func(c *cli.Context) error {
 					tfFile := c.Args().Get(0)
 					tag := c.Args().Get(1)
-					chaosFile := c.Args().Get(2)
-					if chaosFile == "" {
-						chaosFile = "chaos-config.hcl"
-					}
-					exec.LogicSingleFileRead(tfFile, tag)
+					action := c.Args().Get(2)
+					exec.LogicSingleFileRead(tfFile, tag, action)
 					return nil
 				},
 			},
