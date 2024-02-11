@@ -11,17 +11,17 @@ variable "region" {
   default = "us-east-1"
 }
 
-provider "google" {
+provider "aws" {
  region ="us-east-1"
-  perro = "perro"
-  test = "test"
+
 }
 
 resource "aws_instance" "foo" {
   ami           = "ami-005e54dee72cc1d00" # us-west-2
   instance_type = "t2.micro"
-
 }
+
+resource "digitalocean_droplet" "this" {}
 
 resource "aws_instance" "boo" {
   ami           = "ami-005e54dee72cc1d00" # us-west-2
@@ -33,7 +33,6 @@ resource "aws_instance" "boo" {
     env = "dev"
   }
 }
-
 
 resource "aws_instance" "test" {
   ami           = "ami-005e54dee72cc1d00" # us-west-2
