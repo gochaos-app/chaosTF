@@ -17,7 +17,7 @@ func ExecCli() {
 				Name: "read",
 				Usage: `Reads a terraform file:
 				chaos read main.tf env:dev
-				chaosTF readtf main.tf env:dev myFile.hcl`,
+				chaosTF readtf main.tf env:dev basic`,
 				Action: func(c *cli.Context) error {
 					tfFile := c.Args().Get(0)
 					tag := c.Args().Get(1)
